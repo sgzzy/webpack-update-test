@@ -26,7 +26,7 @@ const devConfig = {
   devServer: {
     contentBase: path.resolve(__dirname, "../dist"),
     open: true,
-    port: 8081,
+    port: 9090,
     hot: true,
     hotOnly: true,
     proxy: {

@@ -3,12 +3,13 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require("happypack"); //!优化loader的处理时间！！！！！！！！
 var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: "./src/main.js",
     module: {
       rules: [
-        {
+       /*  {
           test: /\.css$/,
           include: path.resolve(__dirname, "./src"),
           use: ["happypack/loader?id=css"]
@@ -33,11 +34,16 @@ module.exports = {
           test: /\.js$/,
           include: path.resolve(__dirname, "./src"),
           use: ["happypack/loader?id=babel"]
+        }, */
+        {
+          test: /\.styl(us)?$/,
+          include: path.resolve(__dirname, "../src"),
+          use: ["vue-style-loader", "css-loader", "stylus-loader"]
         },
         {
             test: /\.vue$/,
-            include: path.resolve(__dirname, "./src"),
-            use: ["happypack/loader?id=vue"]
+            include: path.resolve(__dirname, "../src"),
+            use: ["vue-loader"]
         }
       ]
     },
@@ -50,7 +56,7 @@ module.exports = {
           "../node_modules/vue/dist/vue.runtime.common.js"
         ),
       },
-      extensions: ["js","vue","json"]
+      extensions: [".js",".vue",".json"]
     },
     optimization: {
       splitChunks: {
@@ -66,7 +72,8 @@ module.exports = {
     },
     plugins: [
       new CleanWebpackPlugin(),
-      new HappyPack({
+      new VueLoaderPlugin(),
+     /*  new HappyPack({
         id: "css",
         loaders: ["style-loader", "css-loader"],
         threadPool: happyThreadPool
@@ -92,7 +99,7 @@ module.exports = {
         id: "vue",
         loaders: ["vue-loader"],
         threadPool: happyThreadPool
-      }),
+      }), */
       new miniCssExtractPlugin({
         filename: "css/[name]_[contenthash:6].css"
       })

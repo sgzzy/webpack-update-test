@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch --config ./build/webpack.dev.js",
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js"
   },
   "keywords": [],
@@ -41,16 +41,16 @@
     "simditor": "2.3.6",
     "sortablejs": "1.4.2",
     "ueditor": "1.2.3",
-    "vue": "2.3.4",
+    "vue": "2.6.10",
     "vue-data-tables": "3.4.4",
     "vue-html5-editor": "1.1.1",
     "vue-i18n": "8.3.2",
     "vue-lazy-render": "1.0.20",
     "vue-lazyload": "1.0.4",
-    "vue-router": "2.0.0",
+    "vue-router": "2.8.1",
     "vue-virtual-scroll-list": "1.2.2",
     "vuedraggable": "2.17.0",
-    "vuex": "2.0.0",
+    "vuex": "2.5.0",
     "wangeditor": "2.1.22",
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
@@ -70,6 +70,7 @@
   ],
   "devDependencies": {
     "add-asset-html-webpack-plugin": "^3.1.3",
+    "autoprefixer": "^9.7.6",
     "babel-core": "6.26.3",
     "babel-loader": "7.1.1",
     "babel-plugin-syntax-jsx": "^6.18.0",
@@ -107,8 +108,8 @@
     "stylus-loader": "^3.0.2",
     "url-loader": "^4.0.0",
     "vue-kindeditor": "0.3.0",
-    "vue-loader": "13.3.0",
+    "vue-loader": "^15.9.1",
     "vue-style-loader": "3.0.1",
-    "vue-template-compiler": "2.5.2"
+    "vue-template-compiler": "2.6.10"
   }
 }
