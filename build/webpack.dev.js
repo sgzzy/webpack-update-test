@@ -25,15 +25,13 @@ const devConfig = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, "../dist"),
+    historyApiFallback: true,
+    publicPath: '/',
     open: true,
     port: 9090,
     hot: true,
     hotOnly: true,
-    proxy: {
-      "/api": {
-        target: "http://localhost:9092"
-      }
-    }
+    quiet: true, 
   },
 
   plugins: [
