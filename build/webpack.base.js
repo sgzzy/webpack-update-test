@@ -40,21 +40,26 @@ module.exports = {
                use: ["happypack/loader?id=babel"]
              }, */
             {
+                test: /\.json$/,
+                loader: "json-loader"
+            },
+            {
                 test: /\.css$/,
                 include: path.resolve(__dirname, "./src"),
-                use: ["style-loader", "css-loader", "postcss-loader"]
+                use: [process.env.NODE_ENV !== 'production' ? 'vue-style-loader' : miniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
             },
+            /* vue-loader>15版本样式解析配置不需要重新在loaderOptions中配置 */
             {
                 test: /\.styl(us)?$/,
                 include: path.resolve(__dirname, "../src"),
-                use: ["vue-style-loader", "css-loader", "postcss-loader", "stylus-loader"]
+                use: [process.env.NODE_ENV !== 'production' ? 'vue-style-loader' : miniCssExtractPlugin.loader, "css-loader", "postcss-loader", "stylus-loader"]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: path.posix.join('dist/','img/[name].[hash:7].[ext]')
+                    name: path.posix.join('dist/', 'img/[name].[hash:7].[ext]')
                 }
             },
             {
@@ -62,7 +67,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: path.posix.join('dist/','media/[name].[hash:7].[ext]')
+                    name: path.posix.join('dist/', 'media/[name].[hash:7].[ext]')
                 }
             },
             {
@@ -76,7 +81,17 @@ module.exports = {
             {
                 test: /\.vue$/,
                 include: path.resolve(__dirname, "../src"),
-                use: ["vue-loader"]
+                use: [{
+                    loader: "vue-loader",
+                    options: {
+                        transformAssetUrls: {
+                            video: ['src', 'poster'],
+                            source: 'src',
+                            img: 'src',
+                            image: 'xlink:href'
+                        }
+                    }
+                }]
             }
         ]
     },
@@ -95,12 +110,6 @@ module.exports = {
         splitChunks: {
             chunks: "all", // 所有的 chunks 代码公共的部分分离出来成为一个单独的文件,
             name: true,
-            cacheGroups: {
-                yyy: {
-                    test: /lodash/,
-                    name: "lodash"
-                }
-            }
         }
     },
     plugins: [
@@ -136,5 +145,14 @@ module.exports = {
         new miniCssExtractPlugin({
             filename: "css/[name]_[contenthash:6].css"
         })
-    ]
+    ],
+    node: {
+        setImmediate: false, // Vue源码已实现
+        /* 一下在浏览器汇总无需使用 */
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty'
+    }
 };
