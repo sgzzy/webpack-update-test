@@ -30,7 +30,7 @@
     "jquery": "3.1.1",
     "jsbarcode": "3.8.0",
     "json-server": "0.8.22",
-    "lodash": "4.16.4",
+    "lodash": "4.17.19",
     "mockjs": "^1.1.0",
     "pinyin": "2.8.3",
     "pinyin-engine": "1.1.0",
