@@ -57,7 +57,7 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
-    "xlsx": "0.13.3"
+    "xlsx": "0.17.0"
   },
   "engines": {
     "node": ">=4.0.0",
